@@ -28,9 +28,7 @@ class Books extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: Text(books[index][0],
-                  style: TextStyle(
-                        color: Colors.green,fontSize: 15),),
-                    ),
+            ))
                 ),
               ),
             );

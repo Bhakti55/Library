@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:library_app/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Apps extends StatefulWidget {
    Apps({Key? key}) : super(key: key);
@@ -9,7 +10,9 @@ class Apps extends StatefulWidget {
 }
 
 class _AppsState extends State<Apps> {
-  List<String> litems = [];
+  List litems = [
+    ["Kalnirnay", "https://play.google.com/store/apps/details?id=com.awt.kalnirnay&hl=en_IN&gl=US"]
+  ];
 
   final TextEditingController eCtrl = new TextEditingController();
 
@@ -20,41 +23,27 @@ class _AppsState extends State<Apps> {
       appBar: AppBar(
         title: Text("Apps"),
       ),
-      body:  new Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: new TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter the Apps Name to add into the list",
-                ),
-                controller: eCtrl,
-                onSubmitted: (text) {
-                  litems.add(text);
-                  eCtrl.clear();
-                  setState(() {});
-                },
+      body: ListView.builder
+        (
+          itemCount: litems.length,
+          itemBuilder: (BuildContext ctxt, int Index) {
+            return GestureDetector (
+              onTap: () async {
+                if (await canLaunch(litems[Index][1])) {
+                await launch(litems[Index][1]);
+                } else {
+                throw 'Could not launch ${litems[Index][1]}';
+                }
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Card(child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: new Text(litems[Index][0]),
+                )),
               ),
-            ),
-          ),
-          SizedBox(height: 10,),
-          new Expanded(
-              child: new ListView.builder
-                (
-                  itemCount: litems.length,
-                  itemBuilder: (BuildContext ctxt, int Index) {
-                    return Padding(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      child: Card(child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: new Text(litems[Index]),
-                      )),
-                    );
-                  }
-              )
-          )
-        ],
+            );
+          }
       )
     );
   }

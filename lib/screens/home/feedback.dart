@@ -22,9 +22,6 @@ class _SuggestionsState extends State<Suggestions> {
   }
 
   createGrievance(BuildContext buildContext) async {
-    /*    Navigator.push(context, MaterialPageRoute(
-            builder: (context) => History()));
-        _button.success();*/
 
   }
 
@@ -76,13 +73,8 @@ class _SuggestionsState extends State<Suggestions> {
                     color: kPrimaryColor,
                     controller: _button,
                     onPressed: () {
-                      if(suggestion.text.isEmpty) {
-                       // SbioaHelper.buildErrorSnackbar(buildContext, "Give some feedback");
                         _button.error();
                         _button.reset();
-                      } else {
-                        createGrievance(buildContext);
-                      }
                     },
                     child: Text("SUBMIT",
                       style: TextStyle(
